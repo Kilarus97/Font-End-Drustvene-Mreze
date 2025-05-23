@@ -1,5 +1,5 @@
 function getAll() {
-    fetch('http://localhost:21271/api/users') // Pravi GET zahtev da dobavi sve usere sa servera
+    fetch('http://localhost:21271/api/GrupeUsers/group/11') // Pravi GET zahtev da dobavi sve usere u grupi sa servera
       .then(response => {
         if (!response.ok) {
           // Ako se vrati statusni kod koji nije iz 2xx, tretiraj kao grešku
