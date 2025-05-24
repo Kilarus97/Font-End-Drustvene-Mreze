@@ -1,0 +1,94 @@
+@use '../styles/global';
+
+.hidden {
+    display: none !important; /* Sakriva element */
+}
+.form-container {
+    margin: 20px 0;
+}
+
+.form-container {
+    margin: 20px 0;
+    display: flex; /* Aktivira Flexbox */
+    flex-direction: column;
+    align-items: center; /* Centriranje dugmadi po horizontali */
+    gap: 20px; /* Razmak između dugmadi */
+
+    button {
+        flex-direction: row;
+        cursor: pointer;
+        margin: 20px;
+        padding: 40px;
+        width: 20%;
+        background-color: #00b7ff;
+        border: 1px solid #00b7ff;
+        color: white;
+    }
+
+    #dodajForm {
+        width:50%; /* Širina forme */
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        display: flex; /* Aktivira Flexbox */
+        flex-direction: column; /* Postavlja elemente u kolonu */
+        align-items: center; /* Centriranje elemenata po horizontali */
+            input {
+                width: 50%;
+                margin: 10px;
+                padding: 10px;
+                border: 1px solid #00b7ff;
+                border-radius: 20px;
+            }
+
+        button {
+            width: 30%;
+            height: auto;
+            
+        }
+    }
+
+    #izmeniForm {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; 
+        align-items: flex-start; 
+        margin: 20px;
+        //Ubacio sam tabelu u isti kontenjer ne treba ovo
+        width: 80%;
+        gap: 20px; //dodao gap
+
+        input {
+            width: 80%;
+                margin: 10px;
+                padding: 10px;
+                border: 1px solid #00b7ff;
+                border-radius: 20px;
+        }
+    
+        caption {
+            margin: 20px;
+            font-weight: bold;
+            border: 1px solid #333;
+            padding: 30px;
+            background-color: #333;
+            color: #f4f4f9;
+        }
+    
+        table {
+            width: 90%;
+            border: 1px solid black;
+            padding: 10px;
+            
+            th,td{
+                background-color: #333;
+                color: #f4f4f9;
+                border: 1px solid black;
+                border-radius: 5px;
+                padding: 10px;
+                text-align: center;
+            }
+        }
+    }
+}

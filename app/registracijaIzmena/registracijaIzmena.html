@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../dist/registracijaIzmena/registracijaIzmena.css">
+    <title>Document</title>
+</head>
+<body>
+    <nav class="navbar">
+        <h1 class="title">Smiguel</h1>
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../sviKorisnici/sviKorisnici.html">Svi Korisnici</a></li>
+            <li><a href="../grupe/grupe.html">Grupe</a></li>
+            <li><a href="registracijaIzmena.html">Registracija i Izmena</a></li>
+        </ul>
+    </nav>
+
+    <div class="form-container">
+        <button id="dodajBtn">Dodaj Korisnika</button>
+        <button id="izmeniBtn">Izmeni Korisnika</button>
+
+        <!-- Forma za dodavanje korisnika -->
+        <form id="dodajForm" class="hidden">
+            <h2>Dodaj Korisnika</h2>
+            <label for="dodajId">ID Korisnika:</label>
+            <input type="text" id="dodajId" name="id" required>
+            <label for="dodajKorisnickoIme">Korisnicko Ime:</label>
+            <input type="text" id="dodajKorisnickoIme" name="korisnickoIme" required>
+            <label for="dodajIme">Ime:</label>
+            <input type="text" id="dodajIme" name="ime" required>
+            <label for="dodajPrezime">Prezime:</label>
+            <input type="text" id="dodajPrezime" name="prezime" required>
+            <label for="dodajDatumRodjenja">Datum Rodjenja:</label>
+            <input type="date" id="dodajDatumRodjenja" name="datumRodjenja" required>
+            <button type="submit" id="submitBtn">Dodaj</button>
+        </form>
+
+        <!-- Forma za izmenu korisnika -->
+        <div id="izmeniForm" class="hidden">
+            <h2>Izmeni Korisnika</h2>
+            <table id="korisniciTabela" border="1">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Korisnicko Ime</th>
+                        <th>Ime</th>
+                        <th>Prezime</th>
+                        <th>Datum Rodjenja</th>
+                    </tr>
+                </thead>
+                <tbody id="korisniciBody">
+                    <!-- Redovi će biti dodati dinamički -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="registracijaIzmena.js"></script>
+</body>
+</html>
