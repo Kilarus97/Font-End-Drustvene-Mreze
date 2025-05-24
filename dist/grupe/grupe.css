@@ -33,6 +33,10 @@ body {
   display: none;
 }
 
+#usersNoGroup {
+  display: none;
+}
+
 .dodajGrupu {
   margin-left: 50px;
   width: 150px;
