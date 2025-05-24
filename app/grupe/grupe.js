@@ -1,3 +1,23 @@
+function GetGroups(){
+  fetch('http://localhost:21271/api/grupe')
+  .then(response => {
+    if(!response.ok){
+      throw new Error('Request failed. Status: ' + response.status)
+    }
+    return response.json();
+  })
+  .then(groups => ispisiGrupe(groups))
+  .catch(error =>  {
+     console.error('Error:', error.message)
+        // Sakrij tabelu
+        let table = document.querySelector('table')
+        if (table) {
+          table.style.display = 'none'
+        }
+        alert('An error occurred while loading the data. Please try again.')
+  })
+}
+
 function getAll() {
     fetch('http://localhost:21271/api/GrupeUsers/group/11') // Pravi GET zahtev da dobavi sve usere u grupi sa servera
       .then(response => {
@@ -20,8 +40,55 @@ function getAll() {
       })
   }
 
+function ispisiGrupe(groups){
+  let table = document.querySelector('#groupsBody')
+  table.innerHTML = '';
 
-  
+  groups.forEach(group => {
+    const row = document.createElement("tr");
+
+    let newDate = new Date(group.datumOsnivanja)
+    let day = String(newDate.getDate()).padStart(2, '0');
+    let month = String(newDate.getMonth() + 1).padStart(2, '0');
+    let year = newDate.getFullYear();
+    let datum = `${day}/${month}/${year}`;
+
+    row.innerHTML = `
+      <td>${group.id}</td>
+      <td>${group.naziv}</td>
+      <td>${datum}</td>
+      <td><button class="izbrisi" data-id="${group.id}">Izbrisi</button></td>
+    `;
+
+    table.appendChild(row);
+  });
+
+  table.querySelectorAll(".izbrisi").forEach(button => {
+    button.addEventListener("click", () => {
+      const id = parseInt(button.getAttribute("data-id"))
+      izbrisiGrupu(id)
+    })
+  });
+}
+
+
+function izbrisiGrupu(id){
+   fetch(`http://localhost:21271/api/grupe/${id}`, {
+    method: 'DELETE'
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Delete failed. Status: ' + response.status);
+    }
+    GetGroups();
+  })
+  .catch(error => {
+    console.error('Error:', error.message);
+    alert('An error occurred while deleting the group. Please try again.');
+  });
+
+}
+
 function ispisiUsers(nizUsera){
     let tabela = document.querySelector('#usersBody')
     tabela.innerHTML = ''
@@ -52,4 +119,5 @@ function ispisiUsers(nizUsera){
     }
 }
 
+document.addEventListener('DOMContentLoaded', GetGroups)
 document.addEventListener('DOMContentLoaded', getAll)
