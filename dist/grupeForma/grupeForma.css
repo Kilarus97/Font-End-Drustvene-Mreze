@@ -1,0 +1,64 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f7fa;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.container-forma {
+  max-width: 400px;
+  margin: 3rem auto;
+  background-color: white;
+  padding: 2rem 2.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.forma {
+  display: flex;
+  flex-direction: column;
+}
+.forma .form-group {
+  margin-bottom: 1.5rem;
+}
+.forma .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #003153;
+}
+.forma .form-group input[type=text],
+.forma .form-group input[type=date] {
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  font-size: 1rem;
+  border: 1.5px solid #dde0e9;
+  border-radius: 5px;
+  transition: border-color 0.3s;
+}
+.forma .form-group input[type=text]:focus,
+.forma .form-group input[type=date]:focus {
+  outline: none;
+  border-color: #b96d34;
+  box-shadow: 0 0 5px rgba(185, 109, 52, 0.5);
+}
+.forma .dodaj-btn {
+  padding: 0.7rem 1rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.forma .dodaj-btn:hover {
+  background-color: #003153;
+}
+.forma .dodaj-btn:active {
+  background-color: #003153;
+}
+
+/*# sourceMappingURL=grupeForma.css.map */

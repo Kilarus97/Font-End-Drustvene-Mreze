@@ -18,8 +18,8 @@ function GetGroups(){
   })
 }
 
-function getAll() {
-    fetch('http://localhost:21271/api/GrupeUsers/group/11') // Pravi GET zahtev da dobavi sve usere u grupi sa servera
+function getAll(id) {
+    fetch(`http://localhost:21271/api/GrupeUsers/group/${id}`) // Pravi GET zahtev da dobavi sve usere u grupi sa servera
       .then(response => {
         if (!response.ok) {
           // Ako se vrati statusni kod koji nije iz 2xx, tretiraj kao grešku
@@ -57,10 +57,18 @@ function ispisiGrupe(groups){
       <td>${group.id}</td>
       <td>${group.naziv}</td>
       <td>${datum}</td>
+      <td><button class="detalji" data-id="${group.id}">Detalji</button></td>
       <td><button class="izbrisi" data-id="${group.id}">Izbrisi</button></td>
     `;
 
     table.appendChild(row);
+  });
+
+  table.querySelectorAll(".detalji").forEach(button => {
+    button.addEventListener("click", () => {
+      const id = parseInt(button.getAttribute("data-id"))
+      getAll(id);
+    })
   });
 
   table.querySelectorAll(".izbrisi").forEach(button => {
@@ -90,6 +98,7 @@ function izbrisiGrupu(id){
 }
 
 function ispisiUsers(nizUsera){
+    document.getElementById('users').style.display = 'block';
     let tabela = document.querySelector('#usersBody')
     tabela.innerHTML = ''
 
@@ -120,4 +129,6 @@ function ispisiUsers(nizUsera){
 }
 
 document.addEventListener('DOMContentLoaded', GetGroups)
-document.addEventListener('DOMContentLoaded', getAll)
+document.addEventListener('DOMContentLoaded', document.querySelector('.dodajGrupu').addEventListener('click' , ()=>{
+  window.location.href="../grupeForma/grupeForma.html"
+}))
