@@ -4,7 +4,10 @@ const dodajForm = document.getElementById('dodajForm');
 const izmeniForm = document.getElementById('izmeniForm');
 
 let submitBtn = document.querySelector("#submitBtn")
-submitBtn.addEventListener("click", postNew)
+submitBtn.addEventListener("click", function() {
+  postNew(false, null, null)
+})
+
 
 // Prikazivanje forme za dodavanje
 dodajBtn.addEventListener('click', () => {
@@ -81,7 +84,14 @@ function ispisiUsers(nizUsera) {
             let imeData = red.cells[2].querySelector("input").value
             let prezimeData = red.cells[3].querySelector("input").value
 
-            const datumRodjenja = new Date(red.cells[4].querySelector("input").value); // Pretvara string u Date objekat
+            let datumRodjenjaInput = red.cells[4].querySelector("input").value;
+            let datumRodjenja;
+
+            if (datumRodjenjaInput) {
+                  datumRodjenja = new Date(datumRodjenjaInput); // Koristi uneti datum
+            } else {
+                  datumRodjenja = new Date(nizUsera[indexZaIzmenu - 1].datumRodjenja); // Postavlja trenutni datum ako je polje prazno
+            } // Pretvara string u Date objekat
             const godina = datumRodjenja.getFullYear(); // Dobija punu godinu
             const mesec = String(datumRodjenja.getMonth() + 1).padStart(2, '0'); // Meseci su 0-indeksirani, pa dodajemo 1
             const dan = String(datumRodjenja.getDate()).padStart(2, '0'); // Dodaje 0 ispred jednocifrenih dana
@@ -143,22 +153,27 @@ function postNew(isUpdate = false, userId = null, jsonData = null){
         prezime: document.getElementById("dodajPrezime").value,
         datumRodjenja: formatiranDatum
     };
+     
+    let url = 'http://localhost:21271/api/users';
+    let method ='POST';
 
-    const url = isUpdate
-        ? `http://localhost:21271/api/users/${userId}` // PUT zahteva ID korisnika
-        : 'http://localhost:21271/api/users'; // POST za kreiranje novog korisnika
+    if (userId != null){
+      url = `http://localhost:21271/api/users/${userId}`
+      method = 'PUT';
+    }
 
-    const method = isUpdate ? 'PUT' : 'POST';
+
+    
 
     let bodyData = formData1
 
-        if(isUpdate) {
+        if(userId != null) {
             bodyData = jsonData;
         }
 
         console.log(JSON.stringify(bodyData))
   fetch(url, { // Pravi POST zahtev da se sačuva knjiga
-    method: method,
+    method,
     headers: {
       'Content-Type': 'application/json'
     },
