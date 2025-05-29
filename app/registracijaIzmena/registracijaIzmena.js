@@ -1,3 +1,5 @@
+document.addEventListener('DOMContentLoaded', getAll)
+
 const dodajBtn = document.getElementById('dodajBtn');
 const izmeniBtn = document.getElementById('izmeniBtn');
 const dodajForm = document.getElementById('dodajForm');
@@ -8,6 +10,9 @@ submitBtn.addEventListener("click", function() {
   postNew(false, null, null)
 })
 
+
+
+let korisniciPoId = {};
 
 // Prikazivanje forme za dodavanje
 dodajBtn.addEventListener('click', () => {
@@ -35,7 +40,9 @@ function ispisiUsers(nizUsera) {
 
     for (let korisnik of nizUsera) {
         let noviRed = korisniciBody.insertRow();
+        korisniciPoId[korisnik.id] = korisnik;
 
+        
         // ID (readonly)
         let idCell = noviRed.insertCell();
         idCell.textContent = korisnik.id;
@@ -85,12 +92,12 @@ function ispisiUsers(nizUsera) {
             let prezimeData = red.cells[3].querySelector("input").value
 
             let datumRodjenjaInput = red.cells[4].querySelector("input").value;
-            let datumRodjenja;
+            let datumRodjenja ;
 
             if (datumRodjenjaInput) {
                   datumRodjenja = new Date(datumRodjenjaInput); // Koristi uneti datum
             } else {
-                  datumRodjenja = new Date(nizUsera[indexZaIzmenu - 1].datumRodjenja); // Postavlja trenutni datum ako je polje prazno
+                  datumRodjenja = new Date(korisniciPoId[indexZaIzmenu].datumRodjenja); // Postavlja trenutni datum ako je polje prazno
             } // Pretvara string u Date objekat
             const godina = datumRodjenja.getFullYear(); // Dobija punu godinu
             const mesec = String(datumRodjenja.getMonth() + 1).padStart(2, '0'); // Meseci su 0-indeksirani, pa dodajemo 1
@@ -123,7 +130,10 @@ function getAll() {
         }
         return response.json()
       })
-      .then(users => ispisiUsers(users))  // Ako su podaci ispravni, prikaži ih u HTMLu
+      .then(users =>  {
+        nizUsera = users; // Postavlja dobijene korisnike u globalni niz
+        ispisiUsers(users); // Prikazuje korisnike u tabeli
+        })  // Ako su podaci ispravni, prikaži ih u HTMLu
       .catch(error => {                  // Ako podaci nisu ispravni, sakrij tabelu i prikaži poruku o grešci
         console.error('Error:', error.message)
         // Sakrij tabelu
@@ -208,5 +218,5 @@ function postNew(isUpdate = false, userId = null, jsonData = null){
 }
 
 
-  document.addEventListener('DOMContentLoaded', getAll)
+
 
